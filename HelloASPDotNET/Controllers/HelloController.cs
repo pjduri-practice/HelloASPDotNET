@@ -11,18 +11,25 @@ namespace HelloASPDotNET.Controllers
         {
             string html = "<form method='post' action='/helloworld/welcome'>" +
                 "<input type='text' name='name' />" +
+                "<select name='language'>" +
+                "<option value='Hello'>English</option>" +
+                "<option value='Bonjour'>French</option>" +
+                "<option value='Hola'>Spanish</option>" +
+                "<option value='Aloha'>Hawaiian</option>" +
+                "<option value='Mabuhay'>Tagalog</option>" +
+                "</select>" +
                 "<input type='submit' value='Greet Me!' />" +
                 "</form>";
             return Content(html, "text/html");
         }
 
-        // Get: /helloworld/welcome
-        // POST: /hello/welcome
+        // GET: /helloworld/welcome
+        // POST: /helloworld/welcome
         [HttpPost("welcome")]
-        [HttpGet("welcome/{name?}")]
-        public IActionResult Welcome(string name = "World")
+        [HttpGet("welcome/{name?}/{language?}")]
+        public IActionResult Welcome(string name = "World", string language = "English")
         {
-            return Content($"<h1>Welcome to my app, {name}!</h1>", "text/html");
+            return Content($"<h1>{language}, {name}!</h1>", "text/html");
         }
     }
 }
