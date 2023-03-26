@@ -2,27 +2,28 @@
 
 namespace HelloASPDotNET.Controllers
 {
-    [Route("/helloworld")]
+    
     public class HelloController : Controller
     {
-        // GET:  /helloworld/
         [HttpGet]
         public IActionResult Index()
         {
-            string html = "<form method='post' action='/helloworld/welcome'>" +
-                "<input type='text' name='name' />" +
-                "<input type='submit' value='Greet Me!' />" +
-                "</form>";
-            return Content(html, "text/html");
+            return View();
         }
 
-        // Get: /helloworld/welcome
-        // POST: /hello/welcome
-        [HttpPost("welcome")]
-        [HttpGet("welcome/{name?}")]
-        public IActionResult Welcome(string name = "World")
+        [HttpPost]
+        [Route("/hello")]
+        public IActionResult Welcome(string name)
         {
-            return Content($"<h1>Welcome to my app, {name}!</h1>", "text/html");
+            ViewBag.vegsByPrice = new Dictionary<string, double>();
+            ViewBag.vegsByPrice.Add("Rutabaga", 5.56);
+            ViewBag.vegsByPrice.Add("Cucumber", 3.92);
+            ViewBag.vegsByPrice.Add("Celery", 4.65);
+            ViewBag.vegsByPrice.Add("Cauliflower", 7.89);
+            ViewBag.vegsByPrice.Add("Broccoli", 7.88);
+            ViewBag.vegsByPrice.Add("Green Beans", 2.33);
+            ViewBag.person = name;
+            return View();
         }
     }
 }
